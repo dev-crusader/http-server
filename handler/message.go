@@ -2,6 +2,8 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 	"time"
 
@@ -14,8 +16,25 @@ func HandleMessage(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()
 	requestID := r.Context().Value(md.RequestIDKey).(string)
 
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer r.Body.Close()
+
+	request := models.MessageBody{}
+	err = json.Unmarshal(body, &request)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	// Create a new message struct
-	message := models.Message{Text: "Hello, World!", RequestID: requestID}
+	message := models.Message{
+		User:      request.User,
+		Text:      fmt.Sprintf("Hi, %s! Received your message: '%s'", request.User, request.Msg),
+		RequestID: requestID}
 
 	resp := models.HTTPResponse{
 		Status:      "ok",
