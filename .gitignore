@@ -1,0 +1,12 @@
+.vscode
+.vscode/launch.json
+
+*.exe
+.env
+.coverage/
+__debug_bin
+# Test binary built with `go test-c`
+
+.DS_store
+# Dependency directories
+vendor/
