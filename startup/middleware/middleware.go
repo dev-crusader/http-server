@@ -22,6 +22,15 @@ func GenerateRequestID() string {
 	return id.String()
 }
 
+func MethodType(next http.HandlerFunc, methodType string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if methodType != r.Method {
+			http.Error(w, "Not Found", http.StatusNotFound)
+			return
+		}
+		next(w, r)
+	}
+}
 func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		username, password, ok := r.BasicAuth()

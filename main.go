@@ -12,7 +12,7 @@ import (
 func main() {
 	startup.Load("")
 	// Chain the logger middleware, authentication middleware, and handleHello function for the '/hello' endpoint
-	http.HandleFunc("/message", mdware.Logger(mdware.AuthMiddleware(handler.HandleMessage)))
+	http.HandleFunc("/message", mdware.MethodType(mdware.Logger(mdware.AuthMiddleware(handler.HandleMessage)), http.MethodPost))
 
 	// Start the HTTP server on port 8080
 	fmt.Println("Server is running on port 8080")
