@@ -1,6 +1,7 @@
 package client
 
 import (
+	"bytes"
 	"context"
 	"encoding/base64"
 	"encoding/json"
@@ -45,7 +46,7 @@ func GetClient() *rClient {
 	return client
 }
 
-func RestCall(ctx context.Context, client restClient) error {
+func RestCall(ctx context.Context, client restClient, user, msg string) error {
 	URL := props.GetAll().GetString("HOST", "")
 	if URL == "" {
 		log.Panic("no url found")
@@ -56,6 +57,16 @@ func RestCall(ctx context.Context, client restClient) error {
 		log.Panic("error parsing url: " + URL)
 	}
 
+	reqBody := models.MessageBody{
+		User: user,
+		Msg:  msg,
+	}
+
+	byt, err := json.Marshal(reqBody)
+	if err != nil {
+		log.Print("error while marshalling")
+		return err
+	}
 	req := &http.Request{
 		Method: http.MethodGet,
 		URL:    u,
@@ -64,6 +75,7 @@ func RestCall(ctx context.Context, client restClient) error {
 			"Content-Type":  {"application/json"},
 			"Authorization": {GetBasicAuth()},
 		},
+		Body: io.NopCloser(bytes.NewBuffer(byt)),
 	}
 
 	resp, err := client.do(req)
@@ -93,7 +105,7 @@ func RestCall(ctx context.Context, client restClient) error {
 		return err
 	}
 
-	msg := models.HTTPResponse{}
+	resMsg := models.HTTPResponse{}
 	err = json.Unmarshal(b, &msg)
 	if err != nil {
 		err := fmt.Errorf("error while unmarshalling")
@@ -101,7 +113,7 @@ func RestCall(ctx context.Context, client restClient) error {
 		return err
 	}
 	log.Printf("Received Response: %+v", msg)
-	log.Printf("\nMessage: %s", msg.Message.Text)
+	log.Printf("\nMessage: %s", resMsg.Message.Text)
 	return nil
 }
 
@@ -114,8 +126,8 @@ func GetBasicAuth() string {
 	return "Basic " + encodedAuth
 }
 
-func MakeHTTPCall() {
-	err := RestCall(context.TODO(), client)
+func MakeHTTPCall(user, msg string) {
+	err := RestCall(context.TODO(), client, user, msg)
 	if err != nil {
 		log.Print(err)
 	}
