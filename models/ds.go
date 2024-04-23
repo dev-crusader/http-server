@@ -8,8 +8,8 @@ type Message struct {
 }
 
 type HTTPResponse struct {
-	Status      string `json:"status"`
-	TimeElapsed int64  `json:"timeElapsed"`
-	Message     any    `json:"response"`
-	Error       string `json:"error,omitempty"`
+	Status      string  `json:"status"`
+	TimeElapsed int64   `json:"timeElapsed"`
+	Message     Message `json:"response"`
+	Error       string  `json:"error,omitempty"`
 }
