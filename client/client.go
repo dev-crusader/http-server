@@ -68,7 +68,7 @@ func RestCall(ctx context.Context, client restClient, user, msg string) error {
 		return err
 	}
 	req := &http.Request{
-		Method: http.MethodGet,
+		Method: http.MethodPost,
 		URL:    u,
 		Header: map[string][]string{
 			"Accept":        {"application/json"},
@@ -106,13 +106,13 @@ func RestCall(ctx context.Context, client restClient, user, msg string) error {
 	}
 
 	resMsg := models.HTTPResponse{}
-	err = json.Unmarshal(b, &msg)
+	err = json.Unmarshal(b, &resMsg)
 	if err != nil {
 		err := fmt.Errorf("error while unmarshalling")
 		log.Println(err)
 		return err
 	}
-	log.Printf("Received Response: %+v", msg)
+	log.Printf("Received Response: %+v", resMsg)
 	log.Printf("\nMessage: %s", resMsg.Message.Text)
 	return nil
 }
