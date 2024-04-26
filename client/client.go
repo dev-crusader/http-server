@@ -1,6 +1,7 @@
-package client
+package main
 
 import (
+	"bufio"
 	"bytes"
 	"context"
 	"encoding/base64"
@@ -10,10 +11,10 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/dev-crusader404/http-server/models"
-	"github.com/dev-crusader404/http-server/startup"
 	props "github.com/dev-crusader404/http-server/startup"
 )
 
@@ -118,8 +119,8 @@ func RestCall(ctx context.Context, client restClient, user, msg string) error {
 }
 
 func GetBasicAuth() string {
-	user := startup.GetAll().MustGetString("BASIC-LOGIN")
-	password := startup.GetAll().MustGetString("BASIC-PASSWORD")
+	user := props.GetAll().MustGetString("BASIC-LOGIN")
+	password := props.GetAll().MustGetString("BASIC-PASSWORD")
 
 	authByte := []byte(user + ":" + password)
 	encodedAuth := base64.StdEncoding.EncodeToString(authByte)
@@ -131,4 +132,17 @@ func MakeHTTPCall(user, msg string) {
 	if err != nil {
 		log.Print(err)
 	}
+}
+
+func main() {
+	var name, msg string
+	props.Load("")
+	sc := bufio.NewScanner(os.Stdin)
+	fmt.Println("Enter username: ")
+	sc.Scan()
+	name = sc.Text()
+	fmt.Println("Enter message: ")
+	sc.Scan()
+	msg = sc.Text()
+	MakeHTTPCall(name, msg)
 }
