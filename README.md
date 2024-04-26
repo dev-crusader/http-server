@@ -12,4 +12,5 @@ The client makes HTTP calls with basic authentication in the header and receives
 3. Run the server:
    `go run main.go`
 4. Client code is within the package `https://github.com/dev-crusader404/http-server/client`.
-   Import the client and make a call to the server using function `MakeHTTPCall(user, msg string)` which expects user and msg of type string as arguments. 
+   Run another instance of client:
+   `go run client\client.go`
