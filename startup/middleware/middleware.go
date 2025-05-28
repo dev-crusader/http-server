@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/dev-crusader404/http-server/models"
-	"github.com/dev-crusader404/http-server/startup"
+	"github.com/dev-crusader/http-server/models"
+	"github.com/dev-crusader/http-server/startup"
 	"github.com/google/uuid"
 )
 

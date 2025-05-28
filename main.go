@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dev-crusader404/http-server/handler"
-	"github.com/dev-crusader404/http-server/startup"
-	mdware "github.com/dev-crusader404/http-server/startup/middleware"
+	"github.com/dev-crusader/http-server/handler"
+	"github.com/dev-crusader/http-server/startup"
+	mdware "github.com/dev-crusader/http-server/startup/middleware"
 )
 
 func main() {

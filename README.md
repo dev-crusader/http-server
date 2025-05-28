@@ -7,10 +7,10 @@ The client makes HTTP calls with basic authentication in the header and receives
 
 ## How to run the application
 1. Clone the repository:
-   ```https://github.com/dev-crusader404/http-server.git```
+   ```https://github.com/dev-crusader/http-server.git```
 2. Update the `app.properties` file with the necessary user names and passwords.
 3. Run the server:
    `go run main.go`
-4. Client code is within the package `https://github.com/dev-crusader404/http-server/client`.
+4. Client code is within the package `https://github.com/dev-crusader/http-server/client`.
    Run another instance of client:
    `go run client\client.go`

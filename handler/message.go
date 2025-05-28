@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dev-crusader404/http-server/models"
-	md "github.com/dev-crusader404/http-server/startup/middleware"
+	"github.com/dev-crusader/http-server/models"
+	md "github.com/dev-crusader/http-server/startup/middleware"
 )
 
 // Custom handler function with additional parameters

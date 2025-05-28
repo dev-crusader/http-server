@@ -14,8 +14,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/dev-crusader404/http-server/models"
-	props "github.com/dev-crusader404/http-server/startup"
+	"github.com/dev-crusader/http-server/models"
+	props "github.com/dev-crusader/http-server/startup"
 )
 
 var client *rClient

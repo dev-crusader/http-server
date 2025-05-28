@@ -1,4 +1,4 @@
-module github.com/dev-crusader404/http-server
+module github.com/dev-crusader/http-server
 
 go 1.21.8
 
