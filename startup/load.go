@@ -1,4 +1,4 @@
-package init
+package startup
 
 import (
 	"sync"
@@ -22,7 +22,7 @@ func Load(path string) {
 }
 
 func loadproperties(path string) {
-	p := properties.MustLoadFile("app.properties", properties.UTF8)
+	p := properties.MustLoadFile(path+"app.properties", properties.UTF8)
 	appProperties[propertyKey] = p
 }
 
